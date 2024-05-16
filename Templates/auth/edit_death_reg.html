@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Edit Death Registration{% endblock title %}
+{% block head %}{% include 'partials/auth_head.html' %}{% endblock head %}
+
+{% block body %}
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        {% include 'partials/sidebar.html' %}
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+	        {% block nav %} {% include 'partials/auth_nav.html' %} {% endblock %}
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+
+              {% include 'partials/messages.html' %}
+
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'auth:dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="{% url 'reg:manage_death_reg' %}">All Death Registration</a></li>
+              </ol>
+
+              <!-- Basic Layout & Basic with Icons -->
+              <div class="row">
+                <!-- Basic with Icons -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0">Edit Death Registration</h5>
+                      <small class="text-muted float-end">update</small>
+                    </div>
+                    <div class="card-body">
+                      <form method="POST">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary float-end">Submit</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            {% include 'partials/auth_footer.html' %}
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+
+      <div class="modal fade" id="deathModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Death Registration</h5>
+              <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal"><span>×</span>
+              </button>
+            </div>
+            <form action="" method="POST">
+              <div class="modal-body">Fill the form below to mark this user as dead.
+                <div>
+                  {{ form2|crispy}}
+                  {% csrf_token %}
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-warning btn-block">submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- / Layout wrapper -->
+    <!-- Core JS -->
+    {% include 'partials/auth_script.html' %}
+
+{% endblock body %}
